@@ -362,7 +362,7 @@ int keycontrol() {
 
 
 int menudraw() {
-    int x = 75;
+    int x = 72;
     int y = 35;
     gotoxy(x - 2, y);
     printf("> 게임시작");
@@ -428,7 +428,7 @@ void infodraw() {
     int x = 70;
     int y = 15;
     gotoxy(x - 2, y);
-    printf("                [조작법] \n\n\n\n\n");
+    printf(" [조작법] \n\n\n\n\n");
     printf("                SNAKE 이동 방법 : W, A, S, D \n");
     printf("                인게임 중 종료 : x \n");
     printf("                선택 : 스페이스바 \n\n\n\n\n\n\n");
@@ -447,7 +447,7 @@ int maplistdraw() {
     int y = 20;
     system("cls");
     printf("\n\n\n\n\n\n\n");
-    gotoxy(75, 15);
+    gotoxy(72, 15);
     printf("[맵 선택] \n\n");
 
     gotoxy(x - 2, y);
