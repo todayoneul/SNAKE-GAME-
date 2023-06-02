@@ -8,6 +8,7 @@
 #define WIDTH_hard 75
 #define HEIGHT_hard 50
 #define BOMB_COUNT 6
+
 #endif 
 
 #ifndef KEY_CODE
@@ -22,7 +23,7 @@
 #define C_SUBMIT 4
 
 #endif // !KEY_CODE
-
+//bool gameend;
 int gameOver;  // 게임 종료 여부
 int x, y, fruitX, fruitY, bombX, bombY, score;  // 뱀, 과일, 폭탄의 위치 및 점수
 int bombX_hard[BOMB_COUNT], bombY_hard[BOMB_COUNT]; // 폭탄 개수 조절
@@ -47,3 +48,4 @@ void infodraw();
 int menudraw();
 int maplistdraw();
 void drawgameover();
+

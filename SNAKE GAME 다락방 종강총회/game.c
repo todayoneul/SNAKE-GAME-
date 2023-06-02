@@ -2,7 +2,6 @@
 #include "game.h"
 #include "util.h"
 
-//_hard
 
 void Setup_easy()
 {
@@ -15,7 +14,7 @@ void Setup_easy()
     bombX = rand() % WIDTH_easy;  // 폭탄의 초기 x 좌표
     bombY = rand() % HEIGHT_easy;  // 폭탄의 초기 y 좌표
     score = 0;  // 점수 초기화
-
+    nTail = 0; //만약 뱀이 길어졌다가 게임오버될 경우 꼬리를 초기화 해주어야 다시 게임 진행 가능
 
 }
 
@@ -33,6 +32,7 @@ void Setup_hard()
         bombY_hard[i] = rand() % HEIGHT_hard;  // 폭탄의 초기 y 좌표
     }
     score = 0;  // 점수 초기화
+    nTail = 0; //만약 뱀이 길어졌다가 게임오버될 경우 꼬리를 초기화 해주어야 다시 게임 진행 가능
 
 }
 
@@ -43,7 +43,7 @@ void Draw_easy()
     COORD cursorPos;
     cursorPos.X = 0;
     cursorPos.Y = 0;
-    SetConsoleCursorPosition(hConsole, cursorPos);  //
+    SetConsoleCursorPosition(hConsole, cursorPos); 
 
 
     for (int i = 0; i < WIDTH_easy + 2; i++)
@@ -179,7 +179,7 @@ void Input()
                 dir = DOWN;  // 아래쪽으로 이동
             break;
         case 'x':
-            gameOver = 1;  // 게임 종료
+            gameOver = 1;
             break;
         }
     }
@@ -231,8 +231,11 @@ void Logic_easy()
 
     for (int i = 0; i < nTail; i++)
     {
-        if (tailX[i] == x && tailY[i] == y)
+        if (tailX[i] == x && tailY[i] == y) {
+            nTail = 0;
+           
             gameOver = 1;  // 뱀의 꼬리와 머리가 충돌하면 게임 종료
+        }
     }
 
     if (x == fruitX && y == fruitY)
@@ -297,13 +300,17 @@ void Logic_hard()
 
     for (int i = 0; i < nTail; i++)
     {
-        if (tailX[i] == x && tailY[i] == y)
+        if (tailX[i] == x && tailY[i] == y) {
+            nTail = 0;
+
             gameOver = 1;  // 뱀의 꼬리와 머리가 충돌하면 게임 종료
+        }
     }
 
     for (int i = 0; i < BOMB_COUNT; i++)
     {
         if (x == bombX_hard[i] && y == bombY_hard[i])
+            //gameend = true;
             gameOver = 1;  // 폭탄을 먹으면 게임 종료
     }
 
@@ -322,7 +329,6 @@ void Logic_hard()
         nTail++;  // 뱀의 꼬리 길이 증가
     }
 }
-
 
 
 
@@ -424,6 +430,7 @@ void infodraw() {
     gotoxy(x - 2, y);
     printf("                [조작법] \n\n\n\n\n");
     printf("                SNAKE 이동 방법 : W, A, S, D \n");
+    printf("                인게임 중 종료 : x \n");
     printf("                선택 : 스페이스바 \n\n\n\n\n\n\n");
     printf("                개발자 : 이규한 \n\n\n\n");
     printf("               스페이스바를 누르면 메인화면으로 이동합니다."); \
@@ -487,7 +494,6 @@ void drawgameover() {
     system("cls");
     int x = 43;
     int y = 20;
-
     gotoxy(x, y);     printf(" ██████╗  █████╗ ███╗   ███╗███████╗     ██████╗ ██╗   ██╗███████╗██████╗\n");
     gotoxy(x, y + 1); printf("██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔═══██╗██║   ██║██╔════╝██╔══██╗\n");
     gotoxy(x, y + 2); printf("██║  ███╗███████║██╔████╔██║█████╗      ██║   ██║██║   ██║█████╗  ██████╔╝\n");
@@ -495,5 +501,6 @@ void drawgameover() {
     gotoxy(x, y + 4); printf("╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ╚██████╔╝ ╚████╔╝ ███████╗██║  ██║\n");
     gotoxy(x, y + 5); printf(" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝     ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═╝\n");
     system("pause");
+    
 }
 

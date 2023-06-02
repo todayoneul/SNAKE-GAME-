@@ -37,3 +37,11 @@
 
 #endif
 
+#ifndef __STDBOOL_H_
+#define __STDBOOL_H_
+
+
+#include <stdbool.h>
+
+#endif
+
